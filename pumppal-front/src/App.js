@@ -8,6 +8,7 @@ import MyChats from './pages/MyChats';
 import Dashboard from './pages/Dashboard';
 import UsersAnalytics from './pages/UsersAnalytics';
 import Footer from './components/Footer';
+import Breadcrumbs from './components/Breadcrumbs';
 
 export default function App() {
   const [token, setToken] = useState(() => sessionStorage.getItem('token'));
@@ -22,6 +23,7 @@ export default function App() {
   return (
     <BrowserRouter>
       {token && <NavMenu />}
+      {token && <Breadcrumbs />}
       <Routes>
         <Route path="/" element={<Auth />} />
         <Route path="/home" element={token ? <Home /> : <Navigate to="/" replace />} />
