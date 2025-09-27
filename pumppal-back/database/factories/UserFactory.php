@@ -3,42 +3,70 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Models\User;
+use Illuminate\Support\Facades\Http;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
- */
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
+    protected $model = User::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    // Cache photos across multiple factory calls in one process
+    protected static $pexelsPhotos = null;
+
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'name'           => $this->faker->name(),
+            'email'          => $this->faker->unique()->safeEmail(),
+            'password'       => bcrypt('password'),
+            'image_url'      => $this->pexelsImageUrl() ?? $this->faker->imageUrl(200, 200, 'people'),
             'remember_token' => Str::random(10),
         ];
     }
 
     /**
-     * Indicate that the model's email address should be unverified.
+     * Try to fetch a Pexels image URL (medium/large) for "corporate man".
+     * Returns null on any failure so we can gracefully fall back.
      */
-    public function unverified(): static
+    protected function pexelsImageUrl(): ?string
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
+        // You can also use config('services.pexels.key') if you prefer
+        $key = env('PEXELS_API_KEY');
+        if (!$key) {
+            return null;
+        }
+
+        try {
+            if (static::$pexelsPhotos === null) {
+                $res = Http::timeout(8)
+                    ->withHeaders(['Authorization' => $key])
+                    ->get('https://api.pexels.com/v1/search', [
+                        'query'       => 'corporate man',
+                        'per_page'    => 80,
+                        'orientation' => 'square', // portrait/landscape/square — optional
+                    ]);
+
+                if (!$res->ok()) {
+                    return null;
+                }
+
+                $photos = $res->json('photos') ?? [];
+
+                // Prefer 'medium' or 'large' thumbnail urls
+                static::$pexelsPhotos = array_values(array_filter(array_map(function ($p) {
+                    $src = $p['src'] ?? null;
+                    return $src['medium'] ?? ($src['large'] ?? ($src['small'] ?? null));
+                }, $photos)));
+            }
+
+            if (!empty(static::$pexelsPhotos)) {
+                return static::$pexelsPhotos[array_rand(static::$pexelsPhotos)];
+            }
+        } catch (\Throwable $e) {
+            // swallow error and fallback to faker image
+        }
+
+        return null;
     }
 }
