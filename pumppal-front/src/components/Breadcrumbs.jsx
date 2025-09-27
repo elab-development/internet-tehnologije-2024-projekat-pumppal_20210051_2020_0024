@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { chakra } from '@chakra-ui/react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 
-// Brand colorsss
+// Brand colors
 const NAVY_DEEP = '#0f1f36';
 const YELLOW = '#F5B400';
 const YELLOW_2 = '#FFC53D';
@@ -21,6 +21,11 @@ const LABEL_MAP = {
   dashboard: 'Dashboard',
 };
 
+// Route → root override: if pathname starts with this key, use the given root
+const ROOT_BY_PREFIX = {
+  '/users-analytics': { label: 'Dashboard', path: '/dashboard' },
+};
+
 function labelize(slug = '') {
   return slug
     .replace(/[-_]+/g, ' ')
@@ -34,11 +39,19 @@ export default function Breadcrumbs({
 }) {
   const { pathname } = useLocation();
 
-  // Build crumbs from pathname (hook is called unconditionally)
+  // choose effective root (no hooks here)
+  let effectiveRoot = { label: rootLabel, path: rootPath };
+  for (const prefix in ROOT_BY_PREFIX) {
+    if (pathname.startsWith(prefix)) {
+      effectiveRoot = ROOT_BY_PREFIX[prefix];
+      break;
+    }
+  }
+
+  // Build crumbs (hook is called unconditionally)
   const crumbs = useMemo(() => {
     const segments = pathname.split('?')[0].split('#')[0].split('/').filter(Boolean);
-
-    const list = [{ label: rootLabel, to: rootPath }];
+    const list = [{ label: effectiveRoot.label, to: effectiveRoot.path }];
 
     let acc = '';
     segments.forEach((seg) => {
@@ -50,9 +63,9 @@ export default function Breadcrumbs({
     });
 
     return list;
-  }, [pathname, rootLabel, rootPath]);
+  }, [pathname, effectiveRoot.label, effectiveRoot.path]);
 
-  // decide visibility AFTER hooks are called
+  // Hide after hooks are called
   const shouldHide = hideOn.has(pathname);
   if (shouldHide) return null;
 
