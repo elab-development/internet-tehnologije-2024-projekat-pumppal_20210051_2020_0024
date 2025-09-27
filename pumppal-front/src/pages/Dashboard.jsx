@@ -184,6 +184,7 @@ export default function Dashboard() {
           </chakra.div>
 
           {/* Right image */}
+          
           <chakra.div position="relative" w="100%" maxW={{ base: '520px', lg: '680px' }}>
             <chakra.div
               position="absolute"
