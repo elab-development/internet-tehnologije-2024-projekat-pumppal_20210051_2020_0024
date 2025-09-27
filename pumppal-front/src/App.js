@@ -7,6 +7,7 @@ import AboutUs from './pages/AboutUs';
 import MyChats from './pages/MyChats';
 import Dashboard from './pages/Dashboard';
 import UsersAnalytics from './pages/UsersAnalytics';
+import Footer from './components/Footer';
 
 export default function App() {
   const [token, setToken] = useState(() => sessionStorage.getItem('token'));
@@ -30,6 +31,7 @@ export default function App() {
         <Route path="/about" element={token ? <AboutUs /> : <Navigate to="/" replace />} />
         <Route path="/chats" element={token ? <MyChats /> : <Navigate to="/" replace />} />
       </Routes>
+      {token && <Footer />}
     </BrowserRouter>
   );
 }
