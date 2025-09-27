@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { chakra } from '@chakra-ui/react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 
-// Brand colors
+// Brand colorsss
 const NAVY_DEEP = '#0f1f36';
 const YELLOW = '#F5B400';
 const YELLOW_2 = '#FFC53D';
