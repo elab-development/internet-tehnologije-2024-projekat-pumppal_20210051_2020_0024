@@ -6,6 +6,7 @@ import Auth from './pages/Auth';
 import AboutUs from './pages/AboutUs';
 import MyChats from './pages/MyChats';
 import Dashboard from './pages/Dashboard';
+import UsersAnalytics from './pages/UsersAnalytics';
 
 export default function App() {
   const [token, setToken] = useState(() => sessionStorage.getItem('token'));
@@ -23,7 +24,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Auth />} />
         <Route path="/home" element={token ? <Home /> : <Navigate to="/" replace />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={token ? <Dashboard /> : <Navigate to="/" replace />} />
+        <Route path="/users-analytics" element={token ? <UsersAnalytics /> : <Navigate to="/" replace />} />
         {/* optional extras */}
         <Route path="/about" element={token ? <AboutUs /> : <Navigate to="/" replace />} />
         <Route path="/chats" element={token ? <MyChats /> : <Navigate to="/" replace />} />
