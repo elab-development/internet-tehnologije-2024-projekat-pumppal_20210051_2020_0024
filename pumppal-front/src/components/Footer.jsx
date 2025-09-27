@@ -11,7 +11,6 @@ const LIGHT = '#c9d4e6';
 export default function Footer() {
   return (
     <chakra.footer bg={NAVY_DEEP} color={LIGHT}>
-      {/* subtle top accent */}
       <chakra.div
         height="2px"
         bg={`linear-gradient(90deg, ${YELLOW}, ${YELLOW_2})`}
