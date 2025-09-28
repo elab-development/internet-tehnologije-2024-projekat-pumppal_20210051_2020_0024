@@ -2,6 +2,9 @@
 
 **PumpPal** je full-stack aplikacija za pametnu podršku treninzima, zasnovana na **React** frontendu sa **Chakra UI** komponentama i **Laravel** REST API backendom koji koristi **MySQL** bazu. Fokus je na jednostavnom korisničkom iskustvu, brzim AI odgovorima u chatu i jasnim administratorskim uvidima u korišćenje sistema.
 
+![Logo](./pumppal-front/public/images/logo.png)
+![Logo](./pumppal-front/public/favicon.ico)
+
 ---
 
 ## 🎨 Paleta brenda (UI)
