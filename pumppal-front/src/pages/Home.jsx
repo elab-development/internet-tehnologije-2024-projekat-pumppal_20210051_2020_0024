@@ -126,7 +126,7 @@ export default function Home() {
               </Button>
             </HStack>
 
-            {/* Quick trust strip1 */}
+            {/* Quick trust strip */}
             <HStack
               spacing={6}
               pt={2}
