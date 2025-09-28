@@ -249,7 +249,7 @@ export default function AboutUs() {
         </chakra.div>
       </chakra.div>
 
-      {/* Team section */}
+      {/* Team section1 */}
       <chakra.div px={{ base: 6, md: 14, xl: 24 }} pb={{ base: 16, md: 24 }}>
         <chakra.div mb="24px">
           <chakra.h2 fontSize={{ base: '24px', md: '32px' }} fontWeight="800" mb="6px">
