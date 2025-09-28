@@ -1,28 +1,28 @@
-// src/App.js
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Home from './pages/Home';
+import NavMenu from './components/NavMenu';
 import Auth from './pages/Auth';
 
 export default function App() {
- const [token, setToken] = useState(sessionStorage.getItem('token'));
+  const [token, setToken] = useState(() => sessionStorage.getItem('token'));
 
   useEffect(() => {
-    // check sessionStorage every second
-    const interval = setInterval(() => {
-      const newToken = sessionStorage.getItem('token');
-      setToken(newToken);
-    }, 1000);
-
-    return () => clearInterval(interval); // cleanup on unmount
+    const id = setInterval(() => {
+      setToken(sessionStorage.getItem('token'));
+    }, 800);
+    return () => clearInterval(id);
   }, []);
 
   return (
     <BrowserRouter>
-
+      {token && <NavMenu />}
       <Routes>
         <Route path="/" element={<Auth />} />
         <Route path="/home" element={token ? <Home /> : <Navigate to="/" replace />} />
+        {/* optional extras */}
+        <Route path="/about" element={token ? <div /> : <Navigate to="/" replace />} />
+        <Route path="/chats" element={token ? <div /> : <Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );

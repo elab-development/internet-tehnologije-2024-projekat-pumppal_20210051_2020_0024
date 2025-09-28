@@ -21,6 +21,9 @@ import {
   FaChartLine,
 } from 'react-icons/fa';
 
+import { Link as RouterLink } from 'react-router-dom';
+
+
 // Brand colors
 const NAVY_DEEP = '#0f1f36';
 const PANEL = '#232941';
@@ -94,6 +97,8 @@ export default function Home() {
 
             <HStack spacing={4} flexWrap="wrap">
               <Button
+                as={RouterLink}
+                to="/chats"
                 size="lg"
                 rounded="full"
                 fontWeight="800"
@@ -108,6 +113,8 @@ export default function Home() {
               </Button>
 
               <Button
+                as={RouterLink}
+                to="/about"
                 size="lg"
                 rounded="full"
                 variant="outline"
