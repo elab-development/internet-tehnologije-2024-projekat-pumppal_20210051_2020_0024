@@ -113,3 +113,26 @@ Aplikacija je podeljena na jasno definisane celine:
 **PumpPal** spaja elegantan i brz web interfejs sa pouzdanim API slojem: regularnim korisnicima donosi prijatan AI chat i motivacione funkcije, a administratorima jasan uvid u rast i angažman korisničke baze. Dizajn je moderan, dosledan i spreman za dalji razvoj.
 
 
+## ⚙️ Instalacija i pokretanje
+---------------------------
+
+1. Klonirajte repozitorijum:
+```bash
+    git clone https://github.com/elab-development/internet-tehnologije-2024-projekat-pumppal_20210051_2020_0024.git
+```
+2. Pokrenite backend:
+```bash
+   cd pumppal-back
+   composer install
+   php artisan migrate:fresh --seed
+   php artisan serve
+```
+    
+3. Pokrenite frontend:
+```bash
+   cd pumppal-front
+   npm install
+   npm start
+```
+    
+4.  Frontend pokrenut na: [http://localhost:3000](http://localhost:3000) Backend API pokrenut na: [http://127.0.0.1:8000/api](http://127.0.0.1:8000/api)
