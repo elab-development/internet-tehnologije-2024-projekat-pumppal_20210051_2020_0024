@@ -418,7 +418,7 @@ export default function Auth() {
                     />
                   </SimpleGrid>
 
-                  {/* Compact upload row1 */}
+                  {/* Compact upload row */}
                   <Box
                     mt={{ base: 3, md: 4 }}
                     border="1px dashed"
