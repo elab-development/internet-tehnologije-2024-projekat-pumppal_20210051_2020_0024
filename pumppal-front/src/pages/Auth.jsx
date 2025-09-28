@@ -318,6 +318,7 @@ export default function Auth() {
                       placeholder: 'Email',
                       value: form.email,
                       onChange: handleChange,
+                      color: 'white'
                     }}
                   />
                   <Field
@@ -328,6 +329,7 @@ export default function Auth() {
                       placeholder: 'Password',
                       value: form.password,
                       onChange: handleChange,
+                      color: 'white'
                     }}
                   />
 
@@ -372,6 +374,7 @@ export default function Auth() {
                         placeholder: 'Name',
                         value: form.name,
                         onChange: handleChange,
+                      color: 'white'
                       }}
                     />
                     <Field
@@ -382,6 +385,7 @@ export default function Auth() {
                         placeholder: 'Email',
                         value: form.email,
                         onChange: handleChange,
+                      color: 'white'
                       }}
                     />
                     <Field
@@ -392,6 +396,7 @@ export default function Auth() {
                         placeholder: 'Password',
                         value: form.password,
                         onChange: handleChange,
+                      color: 'white'
                       }}
                     />
                     <Field
@@ -402,6 +407,7 @@ export default function Auth() {
                         placeholder: 'Confirm Password',
                         value: form.password_confirmation,
                         onChange: handleChange,
+                      color: 'white'
                       }}
                     />
                   </SimpleGrid>
