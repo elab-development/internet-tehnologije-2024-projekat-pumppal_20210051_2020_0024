@@ -1,16 +1,15 @@
-import './App.css';
+// src/App.js
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Auth from './pages/Auth';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+    <BrowserRouter>
 
-      </header>
-    </div>
+      <Routes>
+        <Route path="/" element={<Auth />} />
+        {/* ...other routes */}
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
