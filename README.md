@@ -111,3 +111,5 @@ Aplikacija je podeljena na jasno definisane celine:
 ---
 
 **PumpPal** spaja elegantan i brz web interfejs sa pouzdanim API slojem: regularnim korisnicima donosi prijatan AI chat i motivacione funkcije, a administratorima jasan uvid u rast i angažman korisničke baze. Dizajn je moderan, dosledan i spreman za dalji razvoj.
+
+
