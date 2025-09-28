@@ -127,14 +127,20 @@ export default function Auth() {
 
     try {
       const userData = await submitAuth(mode, payload);
+      await console.log(userData.role);
 
       if (mode === 'register') {
         setNotice({ type: 'success', msg: 'Account created! You can log in now.' });
         setMode('login');
         resetAll();
       } else {
-        if (userData.role === 'regular') window.location.replace('/home');
-        else window.location.replace('/dashboard');
+        console.log(userData.role);
+ 
+        if (userData.role === 'regular') {
+            window.location.replace("/home");
+        } else {
+          window.location.replace('/dashboard');
+        }
       }
     } catch {
       if (authError) setNotice({ type: 'error', msg: authError });

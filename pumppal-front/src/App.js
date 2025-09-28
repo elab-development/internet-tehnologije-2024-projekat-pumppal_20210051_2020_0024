@@ -5,6 +5,7 @@ import NavMenu from './components/NavMenu';
 import Auth from './pages/Auth';
 import AboutUs from './pages/AboutUs';
 import MyChats from './pages/MyChats';
+import Dashboard from './pages/Dashboard';
 
 export default function App() {
   const [token, setToken] = useState(() => sessionStorage.getItem('token'));
@@ -22,6 +23,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Auth />} />
         <Route path="/home" element={token ? <Home /> : <Navigate to="/" replace />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         {/* optional extras */}
         <Route path="/about" element={token ? <AboutUs /> : <Navigate to="/" replace />} />
         <Route path="/chats" element={token ? <MyChats /> : <Navigate to="/" replace />} />
