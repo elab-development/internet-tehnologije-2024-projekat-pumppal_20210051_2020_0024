@@ -13,6 +13,12 @@ const LIGHT_FADE = 'rgba(255,255,255,0.06)';
 // Point to your backend. Change with REACT_APP_API_URL if needed.
 const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
+// Admin menu (adjust paths if your routes differ)
+const ADMIN_LINKS = [
+  { to: '/dashboard', label: 'Dashboard' },
+  { to: '/users-analytics', label: 'Users Analytics' },
+];
+
 // Read the exact keys you provided from sessionStorage
 function readSessionUserExact() {
   if (typeof window === 'undefined') return { token: null };
@@ -78,6 +84,7 @@ export default function NavMenu() {
   // Hide nav entirely when not authenticated
   if (!token) return null;
 
+  const isAdmin = String(role).toLowerCase() === 'administrator';
   const isActive = (p) => location.pathname === p;
 
   const clearAndRedirect = () => {
@@ -91,14 +98,13 @@ export default function NavMenu() {
     if (loggingOut) return;
     setLoggingOut(true);
     try {
-      // Call your backend logout endpoint
       await fetch(`${API_BASE}/logout`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
-        credentials: 'include', // in case cookies are used
+        credentials: 'include',
       });
     } catch {
       // ignore network errors; we still clear session
@@ -129,7 +135,10 @@ export default function NavMenu() {
         gap="12px"
       >
         {/* Brand */}
-        <RouterLink to="/home" style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+        <RouterLink
+          to={isAdmin ? '/dashboard' : '/home'}
+          style={{ display: 'flex', gap: '12px', alignItems: 'center' }}
+        >
           <chakra.img
             src="/images/logo.png"
             alt="PumpPal"
@@ -143,9 +152,18 @@ export default function NavMenu() {
 
         {/* Desktop links */}
         <chakra.nav display={{ base: 'none', md: 'flex' }} gap="8px" alignItems="center">
-          <PillLink to="/home" active={isActive('/home')}>Home</PillLink>
-          <PillLink to="/about" active={isActive('/about')}>About Us</PillLink>
-          <PillLink to="/chats" active={isActive('/chats')}>My Chats</PillLink>
+          {isAdmin ? (
+            <>
+              <PillLink to="/dashboard" active={isActive('/dashboard')}>Dashboard</PillLink>
+              <PillLink to="/users-analytics" active={isActive('/users-analytics')}>Users Analytics</PillLink>
+            </>
+          ) : (
+            <>
+              <PillLink to="/home" active={isActive('/home')}>Home</PillLink>
+              <PillLink to="/about" active={isActive('/about')}>About Us</PillLink>
+              <PillLink to="/chats" active={isActive('/chats')}>My Chats</PillLink>
+            </>
+          )}
         </chakra.nav>
 
         {/* Desktop user */}
@@ -156,7 +174,11 @@ export default function NavMenu() {
               alt={name}
               width="50px"
               height="50px"
-              style={{ borderRadius: '9999px', border: '2px solid rgba(255,255,255,0.35)', objectFit: 'cover' }}
+              style={{
+                borderRadius: '9999px',
+                border: '2px solid rgba(255,255,255,0.35)',
+                objectFit: 'cover',
+              }}
             />
             <chakra.div lineHeight="1.1" minW="0">
               <chakra.div color="white" fontWeight="700" noOfLines={1}>{name}</chakra.div>
@@ -230,7 +252,11 @@ export default function NavMenu() {
                   alt={name}
                   width="34px"
                   height="34px"
-                  style={{ borderRadius: '9999px', border: '2px solid rgba(255,255,255,0.35)', objectFit: 'cover' }}
+                  style={{
+                    borderRadius: '9999px',
+                    border: '2px solid rgba(255,255,255,0.35)',
+                    objectFit: 'cover',
+                  }}
                 />
                 <chakra.div lineHeight="1.1">
                   <chakra.div color="white" fontWeight="700">{name}</chakra.div>
@@ -254,9 +280,32 @@ export default function NavMenu() {
             </chakra.div>
 
             <chakra.nav display="grid" gap="10px">
-              <PillLink to="/home" active={isActive('/home')} onClick={() => setMobileOpen(false)}>Home</PillLink>
-              <PillLink to="/about" active={isActive('/about')} onClick={() => setMobileOpen(false)}>About Us</PillLink>
-              <PillLink to="/chats" active={isActive('/chats')} onClick={() => setMobileOpen(false)}>My Chats</PillLink>
+              {isAdmin ? (
+                <>
+                  <PillLink to="/dashboard" active={isActive('/dashboard')} onClick={() => setMobileOpen(false)}>
+                    Dashboard
+                  </PillLink>
+                  <PillLink
+                    to="/users-analytics"
+                    active={isActive('/users-analytics')}
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    Users Analytics
+                  </PillLink>
+                </>
+              ) : (
+                <>
+                  <PillLink to="/home" active={isActive('/home')} onClick={() => setMobileOpen(false)}>
+                    Home
+                  </PillLink>
+                  <PillLink to="/about" active={isActive('/about')} onClick={() => setMobileOpen(false)}>
+                    About Us
+                  </PillLink>
+                  <PillLink to="/chats" active={isActive('/chats')} onClick={() => setMobileOpen(false)}>
+                    My Chats
+                  </PillLink>
+                </>
+              )}
 
               <chakra.button
                 type="button"
