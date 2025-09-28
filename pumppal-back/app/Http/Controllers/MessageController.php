@@ -93,7 +93,7 @@ class MessageController extends Controller
                 'messages'    => [
                     [
                         'role'    => 'system',
-                        'content' => 'You are an expert in agriculture, providing clear, actionable advice.',
+                        'content' => 'You are an expert in exercise, sports, nutrition and physical health, providing clear, actionable advice. Your name is PumpPal AI Gym Assistant.',
                     ],
                     [
                         'role'    => 'user',

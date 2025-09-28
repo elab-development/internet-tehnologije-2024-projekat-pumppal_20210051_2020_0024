@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import NavMenu from './components/NavMenu';
 import Auth from './pages/Auth';
 import AboutUs from './pages/AboutUs';
+import MyChats from './pages/MyChats';
 
 export default function App() {
   const [token, setToken] = useState(() => sessionStorage.getItem('token'));
@@ -23,7 +24,7 @@ export default function App() {
         <Route path="/home" element={token ? <Home /> : <Navigate to="/" replace />} />
         {/* optional extras */}
         <Route path="/about" element={token ? <AboutUs /> : <Navigate to="/" replace />} />
-        <Route path="/chats" element={token ? <div /> : <Navigate to="/" replace />} />
+        <Route path="/chats" element={token ? <MyChats /> : <Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
