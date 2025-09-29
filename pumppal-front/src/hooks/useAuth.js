@@ -25,12 +25,14 @@ export default function useAuth() {
         throw new Error('No token returned from server.');
       }
       
-      sessionStorage.setItem('token', token);
-      sessionStorage.setItem('userId', data.id);
-      sessionStorage.setItem('userName', data.name);
-      sessionStorage.setItem('userEmail', data.email);
-      sessionStorage.setItem('userRole', data.role);
-      sessionStorage.setItem('userImage', data.imageUrl || '');
+      if(mode === "login"){
+        sessionStorage.setItem('token', token);
+        sessionStorage.setItem('userId', data.id);
+        sessionStorage.setItem('userName', data.name);
+        sessionStorage.setItem('userEmail', data.email);
+        sessionStorage.setItem('userRole', data.role);
+        sessionStorage.setItem('userImage', data.imageUrl || '');
+      }
 
       setIsLoading(false);
       return data;
