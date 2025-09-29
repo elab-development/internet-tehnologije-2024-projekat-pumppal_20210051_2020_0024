@@ -11,7 +11,7 @@ const LIGHT = '#c9d4e6';
 const LIGHT_FADE = 'rgba(255,255,255,0.06)';
 
 // Point to your backend. Change with REACT_APP_API_URL if needed.
-const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 // Admin menu (adjust paths if your routes differ)
 const ADMIN_LINKS = [
